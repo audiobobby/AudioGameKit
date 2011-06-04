@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'AudioGameKit' target in the 'AudioGameKit' project
+//
+
+#ifdef __OBJC__
+    #import <Foundation/Foundation.h>
+#endif
