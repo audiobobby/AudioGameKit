@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreAudio/CoreAudio.h>
-#import <
+
+
 
 @class AGKMediaSession;
 
@@ -21,11 +21,13 @@
 @end
 
 @interface AGKMediaSession : NSObject {
-    id<AGKMediaSessionDelegate> _delegate;
+    id<AGKMediaSessionDelegate> _delegate;  
     
 }
 
 @property (assign, nonatomic) id<AGKMediaSessionDelegate> delegate;
+
+@property (readonly, assign) NSInteger time;
 
 
 

@@ -4,4 +4,8 @@
 
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
+    #import <MediaPlayer/MediaPlayer.h>
+    #import <AVFoundation/AVFoundation.h>
+    #import <CoreMedia/CoreMedia.h>
+    #import <CoreAudio/CoreAudio.h>
 #endif
