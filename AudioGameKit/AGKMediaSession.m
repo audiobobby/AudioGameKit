@@ -51,8 +51,6 @@
                                                          selector:@selector(tick:) 
                                                       userInfo:nil 
                                                        repeats:YES] retain];
-        
-        
     }
 }
 
@@ -60,34 +58,40 @@
     [self.player updateMeters];
     int chans = self.player.numberOfChannels;
     
-    float cavg[chans];
-    float cpeak[chans];
+    float cavg;
+    float cpeak;
     
+    
+
+
     for (int i =0; i<chans; i++)
-    {
-        cavg[i] = [self.player averagePowerForChannel:i];
-        cpeak[i] = [self.player peakPowerForChannel:i];
+    {    
+        cavg += [self.player averagePowerForChannel:i];
+        cpeak += [self.player peakPowerForChannel:i];
     }
     
+    cavg = cavg/(float)chans;
+    cpeak = cpeak/(float)chans;
     
-   
-    
-    
+    [self.delegate mediaSession:self max:cpeak average:cavg];
 }
 
 - (void)audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag {
     [self.delegate mediaSessionDidEnd:self];
+    [self stopTimer];
 }
 
 /* if an error occurs while decoding it will be reported to the delegate. */
 - (void)audioPlayerDecodeErrorDidOccur:(AVAudioPlayer *)player error:(NSError *)error {
     NSLog(@"encoder error %@", error);
     [self.delegate mediaSessionDidEnd:self];
+    [self stopTimer];
 }
 
 /* audioPlayerBeginInterruption: is called when the audio session has been interrupted while the player was playing. The player will have been paused. */
 - (void)audioPlayerBeginInterruption:(AVAudioPlayer *)player {
     [self.delegate mediaSessionBeginInteruption:self];
+    [self stopTimer];
 }
 
 /* audioPlayerEndInterruption:withFlags: is called when the audio session interruption has ended and this player had been interrupted while playing. */
@@ -133,12 +137,11 @@
 }
 
 - (void) pause {
+    [self stopTimer];
     if (!self.player) 
     {
-        [self stopTimer];
         return; 
     }
-    
     [self.player pause];
 }
 

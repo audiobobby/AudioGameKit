@@ -131,7 +131,6 @@
 						<string key="NSFrame">{{20, 197}, {280, 66}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 						<int key="IBUIContentHorizontalAlignment">0</int>
@@ -215,6 +214,23 @@
 					</object>
 					<int key="connectionID">15</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">playTouchUp:</string>
+						<reference key="source" ref="230189876"/>
+						<reference key="destination" ref="372490531"/>
+						<int key="IBEventType">7</int>
+					</object>
+					<int key="connectionID">18</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchOutletConnection" key="connection">
+						<string key="label">_playButton</string>
+						<reference key="source" ref="372490531"/>
+						<reference key="destination" ref="230189876"/>
+					</object>
+					<int key="connectionID">19</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -231,10 +247,10 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="230189876"/>
-							<reference ref="777347519"/>
 							<reference ref="590110005"/>
 							<reference ref="380992286"/>
 							<reference ref="579108041"/>
+							<reference ref="777347519"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>
@@ -315,7 +331,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">16</int>
+			<int key="maxID">20</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -362,6 +378,7 @@
 							<string>_albumArtImageView</string>
 							<string>_artistLabel</string>
 							<string>_durationLabel</string>
+							<string>_playButton</string>
 							<string>_titleLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -369,6 +386,7 @@
 							<string>UIImageView</string>
 							<string>UILabel</string>
 							<string>UILabel</string>
+							<string>UIButton</string>
 							<string>UILabel</string>
 						</object>
 					</object>
@@ -379,6 +397,7 @@
 							<string>_albumArtImageView</string>
 							<string>_artistLabel</string>
 							<string>_durationLabel</string>
+							<string>_playButton</string>
 							<string>_titleLabel</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
@@ -394,6 +413,10 @@
 							<object class="IBToOneOutletInfo">
 								<string key="name">_durationLabel</string>
 								<string key="candidateClassName">UILabel</string>
+							</object>
+							<object class="IBToOneOutletInfo">
+								<string key="name">_playButton</string>
+								<string key="candidateClassName">UIButton</string>
 							</object>
 							<object class="IBToOneOutletInfo">
 								<string key="name">_titleLabel</string>

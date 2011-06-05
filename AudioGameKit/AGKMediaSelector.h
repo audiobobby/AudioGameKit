@@ -28,7 +28,9 @@
     IBOutlet UILabel *_artistLabel;
     IBOutlet UILabel *_durationLabel;
     IBOutlet UIImageView *_albumArtImageView;
+    IBOutlet UIButton *_playButton;
     MPMediaItem *_mediaItem;
+    NSURL *_exportURL;
 }
 
 @property (assign,nonatomic) id<AGKMediaSelectorDelegate> delegate;

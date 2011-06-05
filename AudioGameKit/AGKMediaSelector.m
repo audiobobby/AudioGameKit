@@ -39,7 +39,23 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    _titleLabel.text = @"No song selected";
+    _artistLabel.text = @"";
+    _durationLabel.text = @"";
+    _mediaItem = nil;
+    _albumArtImageView.image = nil;
+    _playButton.hidden = YES;
+    [_exportURL release],_exportURL=nil;
+    UITapGestureRecognizer *geature = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectNewSong:)];
+    [_albumArtImageView addGestureRecognizer:geature];
+    [geature release];
+    _albumArtImageView.backgroundColor = [UIColor grayColor];
     // Do any additional setup after loading the view from its nib.
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
 }
 
 - (void)viewDidUnload
@@ -59,67 +75,22 @@
 
 - (IBAction) playTouchUp:(id)sender {
     
-    NSURL *url = [_mediaItem valueForKey:MPMediaItemPropertyAssetURL];
-    
-    if (url)
-    {
+    if (_exportURL) {
+        AGKMediaSession *session = [[AGKMediaSession alloc] init];
         
-        AVAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
-        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+        NSError *error;
         
-        NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-        NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
-        NSString *exportPath = [[documentsDirectoryPath stringByAppendingPathComponent:@"exportfile.m4a"] retain];
+        session.player = [[AVAudioPlayer alloc]initWithContentsOfURL:_exportURL error:&error];
+        session.player.meteringEnabled = YES;
+        [session.player prepareToPlay];
         
-        if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath]) {
-            [[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
-        }
+        if (error != nil) {
+            NSLog(@"unable to create AVAudioPlayer %@", error);
+            return;
+        }                    
         
-        __block NSURL *exportURL = [NSURL fileURLWithPath:exportPath];
-        
-        exporter.outputURL = exportURL;
-        
-        [exporter exportAsynchronouslyWithCompletionHandler:^{
-            int exportStatus = exporter.status;
-            switch (exportStatus) {
-                case AVAssetExportSessionStatusFailed: {
-                    // log error to text view
-                    NSError *exportError = exporter.error;
-                    NSLog (@"AVAssetExportSessionStatusFailed: %@", exportError);
-                    break;
-                }
-                case AVAssetExportSessionStatusCompleted: {
-                    NSLog (@"AVAssetExportSessionStatusCompleted");
-                    AGKMediaSession *session = [[AGKMediaSession alloc] init];
-                    
-                    NSError *error;
-                    
-                    session.player = [[AVAudioPlayer alloc]initWithContentsOfURL:exportURL error:&error];
-                    
-                    if (error == nil) {
-                        NSLog(@"unable to create AVAudioPlayer %@", error);
-                        break;
-                    }                    
-                
-                    [self.delegate mediaSelector:self didSelectMediaSession:session];
-                    
-                    
-                    
-                    break;
-                }
-                case AVAssetExportSessionStatusUnknown: { NSLog (@"AVAssetExportSessionStatusUnknown"); break;}
-                case AVAssetExportSessionStatusExporting: { NSLog (@"AVAssetExportSessionStatusExporting"); break;}
-                case AVAssetExportSessionStatusCancelled: { NSLog (@"AVAssetExportSessionStatusCancelled"); break;}
-                case AVAssetExportSessionStatusWaiting: { NSLog (@"AVAssetExportSessionStatusWaiting"); break;}
-                default: { NSLog (@"didn't get export status"); break;}
-            }
-        }];
-        
-        
-        
-
+        [self.delegate mediaSelector:self didSelectMediaSession:session];
     }
-
 }
 
 - (IBAction) selectNewSong {
@@ -129,12 +100,12 @@
     mediaPicker.prompt = @"Select the song you want to play with.";
     [self presentModalViewController:mediaPicker animated:YES];
     [mediaPicker release];
-    
-    
+
 }
 
 - (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
     [_mediaItem release], _mediaItem = nil;
+    _playButton.hidden = YES;
     
     _mediaItem = [[mediaItemCollection.items objectAtIndex:mediaItemCollection.count-1] retain];
     [mediaPicker dismissModalViewControllerAnimated:YES];
@@ -154,7 +125,53 @@
     //NSURL *url = [_mediaItem valueForKey:MPMediaItemPropertyAssetURL];
     
     
+    NSURL *url = [_mediaItem valueForKey:MPMediaItemPropertyAssetURL];
     
+    if (url)
+    {
+        AVAsset *asset = [AVURLAsset URLAssetWithURL:url options:nil];
+        AVAssetExportSession *exporter = [AVAssetExportSession exportSessionWithAsset:asset presetName:AVAssetExportPresetAppleM4A];
+        
+        NSArray *dirs = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString *documentsDirectoryPath = [dirs objectAtIndex:0];
+        NSString *exportPath = [[documentsDirectoryPath stringByAppendingPathComponent:@"exportfile.m4a"] retain];
+        
+        if ([[NSFileManager defaultManager] fileExistsAtPath:exportPath]) {
+            [[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
+        }
+        
+        _exportURL = [NSURL fileURLWithPath:exportPath];
+        
+        exporter.outputURL = _exportURL;
+        
+        [exporter exportAsynchronouslyWithCompletionHandler:^{
+            int exportStatus = exporter.status;
+            switch (exportStatus) {
+                case AVAssetExportSessionStatusFailed: {
+                    // log error to text view
+                    _playButton.hidden = YES;
+                    NSError *exportError = exporter.error;
+                    NSLog (@"AVAssetExportSessionStatusFailed: %@", exportError);
+                    break;
+                }
+                case AVAssetExportSessionStatusCompleted: {
+                    _playButton.hidden = NO;
+                    NSLog (@"AVAssetExportSessionStatusCompleted");
+                    break;
+
+                }
+                case AVAssetExportSessionStatusUnknown: { NSLog (@"AVAssetExportSessionStatusUnknown"); break;}
+                case AVAssetExportSessionStatusExporting: { NSLog (@"AVAssetExportSessionStatusExporting"); break;}
+                case AVAssetExportSessionStatusCancelled: { NSLog (@"AVAssetExportSessionStatusCancelled"); break;}
+                case AVAssetExportSessionStatusWaiting: { NSLog (@"AVAssetExportSessionStatusWaiting"); break;}
+                default: { NSLog (@"didn't get export status"); break;}
+            }
+        }];
+    }
+    else
+    {
+        NSLog(@"No media asset URL");
+    }
 }
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {
