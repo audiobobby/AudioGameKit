@@ -60,6 +60,18 @@
     [self.player updateMeters];
     int chans = self.player.numberOfChannels;
     
+    float cavg[chans];
+    float cpeak[chans];
+    
+    for (int i =0; i<chans; i++)
+    {
+        cavg[i] = [_player averagePowerForChannel:i];
+        
+        cpeak[i] = [_player peakPowerForChannel:i];
+    }
+    
+    
+   
     
     
 }
