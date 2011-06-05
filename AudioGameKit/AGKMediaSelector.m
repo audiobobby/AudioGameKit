@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    _titleLabel.text = @"No song selected";
+    _titleLabel.text = @"No song selected.";
     _artistLabel.text = @"";
     _durationLabel.text = @"";
     _mediaItem = nil;
@@ -140,6 +140,7 @@
             [[NSFileManager defaultManager] removeItemAtPath:exportPath error:nil];
         }
         
+        [_exportURL release];
         _exportURL = [NSURL fileURLWithPath:exportPath];
         
         exporter.outputURL = _exportURL;

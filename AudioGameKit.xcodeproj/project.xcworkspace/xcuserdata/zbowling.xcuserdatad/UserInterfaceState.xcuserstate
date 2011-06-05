@@ -6732,10 +6732,10 @@
 		<string>PrimaryDocumentVisibleCharacterRange</string>
 		<string>HideAllIssues</string>
 		<string>PrimaryDocumentSelectedCharacterRange</string>
-		<real>328994687.92465299</real>
-		<string>{1137, 2245}</string>
-		<string>{2153, 0}</string>
-		<string>-playTouchUp:</string>
+		<real>328994789.92603302</real>
+		<string>{0, 1579}</string>
+		<string>{821, 0}</string>
+		<string>-viewDidLoad</string>
 		<string>Xcode.IDEKit.EditorDocument.SourceCode</string>
 		<dict>
 			<key>$class</key>
@@ -10610,9 +10610,9 @@
 				</dict>
 			</array>
 		</dict>
-		<real>328994687.92414302</real>
-		<string>{1137, 2245}</string>
-		<string>{2153, 0}</string>
+		<real>328994789.925376</real>
+		<string>{0, 1579}</string>
+		<string>{821, 0}</string>
 		<dict>
 			<key>$class</key>
 			<dict>
@@ -11309,7 +11309,7 @@
 				</dict>
 				<dict>
 					<key>CF$UID</key>
-					<integer>474</integer>
+					<integer>874</integer>
 				</dict>
 			</array>
 		</dict>
@@ -11573,7 +11573,7 @@
 				<integer>891</integer>
 			</dict>
 			<key>NS.time</key>
-			<real>328994686.55018002</real>
+			<real>328994789.11244702</real>
 		</dict>
 		<dict>
 			<key>$classes</key>
@@ -11584,7 +11584,7 @@
 			<key>$classname</key>
 			<string>NSDate</string>
 		</dict>
-		<string>Today at 12:24 PM</string>
+		<string>Today at 12:26 PM</string>
 		<integer>106</integer>
 		<dict>
 			<key>$class</key>
