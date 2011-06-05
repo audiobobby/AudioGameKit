@@ -65,9 +65,8 @@
     
     for (int i =0; i<chans; i++)
     {
-        cavg[i] = [_player averagePowerForChannel:i];
-        
-        cpeak[i] = [_player peakPowerForChannel:i];
+        cavg[i] = [self.player averagePowerForChannel:i];
+        cpeak[i] = [self.player peakPowerForChannel:i];
     }
     
     
