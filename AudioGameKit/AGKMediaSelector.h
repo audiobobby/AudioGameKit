@@ -11,19 +11,31 @@
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
 
+#import "AGKMediaSession.h"
+
 @class AGKMediaSelector;
 
 @protocol AGKMediaSelectorDelegate <NSObject>
 
-- (void) mediaSelectorController:(AGKMediaSelector *)selector didSelectMediaSession:(AGKMediaSession *) session;
-- (void) mediaSelectorDidCancel;
+- (void) mediaSelector:(AGKMediaSelector *)selector didSelectMediaSession:(AGKMediaSession *) session;
+- (void) mediaSelectorDidCancel:(AGKMediaSelector *)selector;
 
 @end
 
-@interface AGKMediaSelector : UIViewController {
+@interface AGKMediaSelector : UIViewController<MPMediaPickerControllerDelegate> {
     id<AGKMediaSelectorDelegate> _delegate;
+    IBOutlet UILabel *_titleLabel;
+    IBOutlet UILabel *_artistLabel;
+    IBOutlet UILabel *_durationLabel;
+    IBOutlet UIImageView *_albumArtImageView;
+    MPMediaItem *_mediaItem;
 }
 
 @property (assign,nonatomic) id<AGKMediaSelectorDelegate> delegate;
+
+- (IBAction) selectNewSong;
+
+- (IBAction) playTouchUp:(id)sender;
+
 
 @end

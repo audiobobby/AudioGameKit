@@ -33,7 +33,7 @@
 		D95FA05D139AA0A6007A8842 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D95FA074139AA54B007A8842 /* AGKMediaSelector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGKMediaSelector.h; sourceTree = "<group>"; };
 		D95FA075139AA54B007A8842 /* AGKMediaSelector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGKMediaSelector.m; sourceTree = "<group>"; };
-		D95FA076139AA54B007A8842 /* AGKMediaSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; path = AGKMediaSelector.xib; sourceTree = "<group>"; };
+		D95FA076139AA54B007A8842 /* AGKMediaSelector.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AGKMediaSelector.xib; sourceTree = "<group>"; };
 		D95FA07D139AA639007A8842 /* AGKMediaSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AGKMediaSession.h; sourceTree = "<group>"; };
 		D95FA07E139AA639007A8842 /* AGKMediaSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AGKMediaSession.m; sourceTree = "<group>"; };
 		D95FA081139AAC97007A8842 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
