@@ -75,7 +75,7 @@
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
-    return (interfaceOrientation == UIInterfaceOrientationPortrait);
+    return YES;
 }
 
 
@@ -173,11 +173,35 @@
                 default: { NSLog (@"didn't get export status"); break;}
             }
         }];
+        
+        _progressView.hidden = NO;
+        _progressView.progress = 0.0;
+
+        NSTimer *progressTimer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                                  target:self
+                                                                selector:@selector (updateExportProgress:)
+                                                                userInfo:exporter
+                                                                 repeats:YES];
     }
     else
     {
         NSLog(@"No media asset URL");
     }
+}
+
+- (void) updateExportProgress:(NSTimer *)timer {
+    AVAssetExportSession *exporter = [timer userInfo];
+	_progressView.progress = exporter.progress;
+	// can we end?
+	int exportStatus = exporter.status;
+	// NSLog (@"updateProgress. status = %d, progress = %f", exportStatus, exporter.progress);
+	if ((exportStatus == AVAssetExportSessionStatusCompleted) ||
+		(exportStatus == AVAssetExportSessionStatusFailed) ||
+		(exportStatus == AVAssetExportSessionStatusCancelled)) {
+		NSLog (@"invaldating timer");
+		[timer invalidate];
+	}
+    
 }
 
 - (void)mediaPickerDidCancel:(MPMediaPickerController *)mediaPicker {

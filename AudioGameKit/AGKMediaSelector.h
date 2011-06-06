@@ -29,6 +29,7 @@
     IBOutlet UILabel *_durationLabel;
     IBOutlet UIImageView *_albumArtImageView;
     IBOutlet UIButton *_playButton;
+    IBOutlet UIProgressView *_progressView;
     MPMediaItem *_mediaItem;
     NSURL *_exportURL;
     MPMediaPickerController *mediaPicker;
