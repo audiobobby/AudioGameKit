@@ -16,13 +16,17 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        mediaPicker = [[MPMediaPickerController alloc] initWithMediaTypes:MPMediaTypeAny];
+        mediaPicker.allowsPickingMultipleItems = NO;
+        mediaPicker.delegate = self;
+        mediaPicker.prompt = @"Select the song you want to play with.";
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [mediaPicker release];
     [super dealloc];
 }
 
@@ -46,11 +50,13 @@
     _albumArtImageView.image = nil;
     _playButton.hidden = YES;
     [_exportURL release],_exportURL=nil;
-    UITapGestureRecognizer *geature = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectNewSong:)];
+    
+    UITapGestureRecognizer *geature = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectNewSong)];
     [_albumArtImageView addGestureRecognizer:geature];
     [geature release];
     _albumArtImageView.backgroundColor = [UIColor grayColor];
-    // Do any additional setup after loading the view from its nib.
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -89,43 +95,42 @@
             return;
         }                    
         
-        [self.delegate mediaSelector:self didSelectMediaSession:session];
+        [self.delegate mediaSelector:self didSelectMediaSession:[session autorelease]];
     }
 }
 
 - (IBAction) selectNewSong {
-    MPMediaPickerController *mediaPicker = [[MPMediaPickerController alloc]initWithMediaTypes:MPMediaTypeMusic];
-    mediaPicker.allowsPickingMultipleItems = NO;
-    mediaPicker.delegate = self;
-    mediaPicker.prompt = @"Select the song you want to play with.";
+
     [self presentModalViewController:mediaPicker animated:YES];
-    [mediaPicker release];
+
 
 }
 
-- (void)mediaPicker:(MPMediaPickerController *)mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
+- (void)mediaPicker:(MPMediaPickerController *)_mediaPicker didPickMediaItems:(MPMediaItemCollection *)mediaItemCollection {
     [_mediaItem release], _mediaItem = nil;
     _playButton.hidden = YES;
     
-    _mediaItem = [[mediaItemCollection.items objectAtIndex:mediaItemCollection.count-1] retain];
+    _mediaItem = [[[mediaItemCollection items] objectAtIndex:0] retain];
     [mediaPicker dismissModalViewControllerAnimated:YES];
     
-    MPMediaItemArtwork *artwork = [_mediaItem valueForKey:MPMediaItemPropertyArtwork];
+    MPMediaItemArtwork *artwork = [_mediaItem valueForProperty:MPMediaItemPropertyArtwork];
     if (artwork)
         _albumArtImageView.image = [artwork imageWithSize:_albumArtImageView.bounds.size];
     else
         _albumArtImageView.image = nil;
     
-    NSString *title = [_mediaItem valueForKey:MPMediaItemPropertyTitle];
+    NSURL *url = [_mediaItem valueForProperty:MPMediaItemPropertyAssetURL];
+    
+    NSString *title = [_mediaItem valueForProperty:MPMediaItemPropertyTitle];
     _titleLabel.text = title;
     
-    NSString *artist = [_mediaItem valueForKey:MPMediaItemPropertyArtist];
+    NSString *artist = [_mediaItem valueForProperty:MPMediaItemPropertyArtist];
     _artistLabel.text = artist;
     
     //NSURL *url = [_mediaItem valueForKey:MPMediaItemPropertyAssetURL];
     
     
-    NSURL *url = [_mediaItem valueForKey:MPMediaItemPropertyAssetURL];
+    
     
     if (url)
     {
@@ -141,10 +146,10 @@
         }
         
         [_exportURL release];
-        _exportURL = [NSURL fileURLWithPath:exportPath];
+        _exportURL = [[NSURL fileURLWithPath:exportPath] retain];
         
         exporter.outputURL = _exportURL;
-        
+        exporter.outputFileType = @"com.apple.m4a-audio";
         [exporter exportAsynchronouslyWithCompletionHandler:^{
             int exportStatus = exporter.status;
             switch (exportStatus) {

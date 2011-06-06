@@ -31,6 +31,7 @@
     IBOutlet UIButton *_playButton;
     MPMediaItem *_mediaItem;
     NSURL *_exportURL;
+    MPMediaPickerController *mediaPicker;
 }
 
 @property (assign,nonatomic) id<AGKMediaSelectorDelegate> delegate;

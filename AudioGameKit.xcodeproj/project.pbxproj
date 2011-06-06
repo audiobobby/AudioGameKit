@@ -14,11 +14,12 @@
 		D95FA061139AA0A6007A8842 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95FA05B139AA0A6007A8842 /* CoreAudio.framework */; };
 		D95FA062139AA0A6007A8842 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95FA05C139AA0A6007A8842 /* MediaPlayer.framework */; };
 		D95FA063139AA0A6007A8842 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95FA05D139AA0A6007A8842 /* UIKit.framework */; };
-		D95FA077139AA54B007A8842 /* AGKMediaSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = D95FA074139AA54B007A8842 /* AGKMediaSelector.h */; };
+		D95FA077139AA54B007A8842 /* AGKMediaSelector.h in Headers */ = {isa = PBXBuildFile; fileRef = D95FA074139AA54B007A8842 /* AGKMediaSelector.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D95FA078139AA54B007A8842 /* AGKMediaSelector.m in Sources */ = {isa = PBXBuildFile; fileRef = D95FA075139AA54B007A8842 /* AGKMediaSelector.m */; };
-		D95FA07F139AA639007A8842 /* AGKMediaSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D95FA07D139AA639007A8842 /* AGKMediaSession.h */; };
+		D95FA07F139AA639007A8842 /* AGKMediaSession.h in Headers */ = {isa = PBXBuildFile; fileRef = D95FA07D139AA639007A8842 /* AGKMediaSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D95FA080139AA639007A8842 /* AGKMediaSession.m in Sources */ = {isa = PBXBuildFile; fileRef = D95FA07E139AA639007A8842 /* AGKMediaSession.m */; };
 		D95FA082139AAC97007A8842 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D95FA081139AAC97007A8842 /* CoreMedia.framework */; };
+		D9BBA1D6139C422700B9C80B /* AGKMediaSelector.xib in Resources */ = {isa = PBXBuildFile; fileRef = D95FA076139AA54B007A8842 /* AGKMediaSelector.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -126,8 +127,8 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D95FA077139AA54B007A8842 /* AGKMediaSelector.h in Headers */,
 				D95FA07F139AA639007A8842 /* AGKMediaSession.h in Headers */,
+				D95FA077139AA54B007A8842 /* AGKMediaSelector.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,6 +142,7 @@
 				D95FA044139AA01C007A8842 /* Sources */,
 				D95FA045139AA01C007A8842 /* Frameworks */,
 				D95FA046139AA01C007A8842 /* Headers */,
+				D9BBA1D5139C421D00B9C80B /* Resources */,
 			);
 			buildRules = (
 			);
@@ -173,6 +175,17 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		D9BBA1D5139C421D00B9C80B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D9BBA1D6139C422700B9C80B /* AGKMediaSelector.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D95FA044139AA01C007A8842 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -197,7 +210,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -210,7 +223,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				SDKROOT = iphoneos;
 			};
 			name = Release;
